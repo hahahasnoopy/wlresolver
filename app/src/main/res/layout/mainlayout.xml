@@ -3,10 +3,19 @@
     android:layout_width="fill_parent"
     android:background="#000"
     xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--主界面的布局文件-->
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/maintoolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:background="#2196f3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.Toolbar>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:scrollbars="vertical">
 
     </android.support.v7.widget.RecyclerView>
