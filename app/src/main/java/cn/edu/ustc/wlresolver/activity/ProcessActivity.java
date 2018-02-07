@@ -1,5 +1,6 @@
 package cn.edu.ustc.wlresolver.activity;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -28,7 +29,7 @@ import cn.edu.ustc.wlresolver.R;
  * Created by Shinelon on 2018/2/5.
  */
 
-public class ProcessActivity extends AppCompatActivity {
+public class ProcessActivity extends Activity {
     private String packageName;
     private int  PID;
     private String processName;
@@ -41,15 +42,15 @@ public class ProcessActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
         Log.d("oncreate","created");
         setContentView(R.layout.process_item);//设置视图
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);//must extends AppCompatActivity
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);//must extends AppCompatActivity
         final WLData  processSelected =getIntent().getParcelableExtra("ProcessSelected");
         CardView cardView = findViewById(R.id.kill);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View view) {
                 killProcess(processSelected.getPackage());//按下按钮时 杀掉进程
             }
