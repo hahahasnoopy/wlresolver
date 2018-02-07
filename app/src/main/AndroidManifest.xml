@@ -17,7 +17,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name="cn.edu.ustc.wlresolver.activity.ProcessActivity"
+        <activity android:name=".activity.ProcessActivity"
             android:label="@string/process"
             android:theme="@style/Theme.AppCompat"
             android:parentActivityName=".activity.MainActivity">

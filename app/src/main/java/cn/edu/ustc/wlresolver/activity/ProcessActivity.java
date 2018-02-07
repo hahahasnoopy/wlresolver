@@ -38,10 +38,9 @@ public class ProcessActivity extends Activity {
     private int CPUUsage;
     private String version;
 
-
-
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         Log.d("oncreate","created");
         setContentView(R.layout.process_item);//设置视图
 //        Toolbar toolbar = findViewById(R.id.toolbar);
@@ -95,8 +94,9 @@ public class ProcessActivity extends Activity {
         }
 
 
-
     }
+
+
 
     //根据top指令获取cpu消耗
     public int getCPUUsage(int PID)
