@@ -17,13 +17,14 @@ import cn.edu.ustc.wlresolver.activity.WLData;
  */
 
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
+    private ArrayList<WLData> wakelockData;
+
 
     public MyAdapter(ArrayList<WLData> wakelock)
     {
         this.wakelockData = wakelock;
     }
 
-    private ArrayList<WLData> wakelockData;
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView processName;
         ImageView iconimage;
@@ -53,6 +54,7 @@ import cn.edu.ustc.wlresolver.activity.WLData;
 
     @Override
     public int getItemCount() {
-        return wakelockData.size();
+
+             return wakelockData.size();
     }
 }

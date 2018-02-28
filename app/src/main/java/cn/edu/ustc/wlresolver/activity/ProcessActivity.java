@@ -57,8 +57,8 @@ public class ProcessActivity extends Activity {
         packageName =  processSelected.getPackage();
         PID = processSelected.getPID();
         processName = processSelected.getProcess();
-        icon =  getIcon(PID);
-        wakelockType = getWakelockType(PID);
+        icon = getIcon(PID);
+        wakelockType = processSelected.getWakelockType();
         CPUUsage  = getCPUUsage(PID);
 
 
@@ -147,77 +147,77 @@ public class ProcessActivity extends Activity {
         startActivity(intent);//回到主界面
     }
 
-    //该方法用于获取唤醒锁类型 通过解析命令行结果得出
-    public String  getWakelockType(int PID){
-        int pid;
-        String wacklocktype = null;
-        try
-        {
-            //导出电源电源管理数据
-            Process process = Runtime.getRuntime().exec(new String[]{ "su","-c","dumpsys power"});
-
-            BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(process.getInputStream()));
-
-            int count=0;//to skip the first line of bufferreader
-            String s; //to store bufferreader nextline
-
-            while ((s =bufferedReader.readLine())!= null)
-            {
-                if (isPresent(s))
-                {
-                    if(count==0)
-                        count++;
-                    else
-                    {
-                        String intValue = s.replaceAll("[^0-9]", " "); //replace all alpa to space
-                        intValue = intValue.replaceAll("\\s+", " ");//replace extra space
-
+//    //该方法用于获取唤醒锁类型 通过解析命令行结果得出
+//    public String  getWakelockType(int PID){
+//        int pid;
+//        String wacklocktype = null;
+//        try
+//        {
+//            //导出电源电源管理数据
+//            Process process = Runtime.getRuntime().exec(new String[]{ "su","-c","dumpsys power"});
+//
+//            BufferedReader bufferedReader = new BufferedReader(
+//                    new InputStreamReader(process.getInputStream()));
+//
+//            int count=0;//to skip the first line of bufferreader
+//            String s; //to store bufferreader nextline
+//
+//            while ((s =bufferedReader.readLine())!= null)
+//            {
+//                if (isPresent(s))
+//                {
+//                    if(count==0)
+//                        count++;
+//                    else
+//                    {
+//                        String intValue = s.replaceAll("[^0-9]", " "); //replace all alpa to space
+//                        intValue = intValue.replaceAll("\\s+", " ");//replace extra space
+//
                         //split the string into words
-                        String[] values = new String[4];
-                        values = intValue.split(" ");
-
-                        //uid and pid
-                        pid=Integer.parseInt(values[2]);
-
-                        if(pid==PID)
-                        {
-                            s = s.replaceAll("\\s+", " ");
-                            String [] temp = s.split(" ");
-                            wakelockType = temp[1];
+//                        String[] values = new String[4];
+//                        values = intValue.split(" ");
+//
+//                        //uid and pid
+//                        pid=Integer.parseInt(values[2]);
+//
+//                        if(pid==PID)
+//                        {
+//                            s = s.replaceAll("\\s+", " ");
+//                            String [] temp = s.split(" ");
+//                            wakelockType = temp[1];
                             //System.out.println(temp[1]);
-
-                        }
-
-                    }
-
-                }
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return  wakelockType;
-
-    }
-    //判断字段中是否有wakelock信息
-    private boolean isPresent(String s)
-    {
-        String [] deli1 = s.split("_");
-        String [] deli2 = s.split(" ");
-        String  a="WAKE";
-
-        //split with the '_'
-        for(int i=0;i<deli1.length;i++)
-            if(a.equalsIgnoreCase(deli1[i]))
-                return true;
-        //split with ' '
-        for(int i=0;i<deli2.length;i++)
-            if(a.equalsIgnoreCase(deli2[i]))
-                return true;
-
-        return false;//does not contain wakelock
-    }
+//
+//                        }
+//
+//                    }
+//
+//                }
+//            }
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return  wakelockType;
+//
+//    }
+//    //判断字段中是否有wakelock信息
+//    private boolean isPresent(String s)
+//    {
+//        String [] deli1 = s.split("_");
+//        String [] deli2 = s.split(" ");
+//        String  a="WAKE";
+//
+//        //split with the '_'
+//        for(int i=0;i<deli1.length;i++)
+//            if(a.equalsIgnoreCase(deli1[i]))
+//                return true;
+//        //split with ' '
+//        for(int i=0;i<deli2.length;i++)
+//            if(a.equalsIgnoreCase(deli2[i]))
+//                return true;
+//
+//        return false;//does not contain wakelock
+//    }
 
     //这个方法根据PID获取应用的图标
     public Drawable getIcon(int PID)

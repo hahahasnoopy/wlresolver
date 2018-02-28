@@ -14,7 +14,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import cn.edu.ustc.wlresolver.MyAdapter;
@@ -32,14 +34,20 @@ public class MainActivity extends Activity{
 
     private static RecyclerView.Adapter adapter;
 
-    private static ArrayList<WLData> wakelocks;
     private WLData selectedProcess;
     //Wakelock Details will be stored in below arrays which are changed dynamically in size
+    private  ArrayList<WLData> wakelocks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        Wakelock  wakelock = new Wakelock(this);
+        try {
+            wakelocks = wakelock.getWakelock();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         setContentView(R.layout.mainlayout);
         Context context = getApplicationContext();
         recyclerView =  findViewById(R.id.recycler);
@@ -56,12 +64,12 @@ public class MainActivity extends Activity{
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-
+        Toolbar toolbar =(Toolbar)findViewById(R.id.toolbar) ;
+        //todo
         adapter = new MyAdapter(wakelocks);
         recyclerView.setAdapter(adapter);
 
-        Wakelock  wakelock = new Wakelock(this);
-        wakelocks = wakelock.getWakelocks();
+
 
     }
     public void clicked(View view, int position)
@@ -120,7 +128,6 @@ class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
     public interface OnItemClickListener {
         public void onItemClick(View view, int position);
     }
-
     GestureDetector mGestureDetector;
 
     public RecyclerItemClickListener(Context context, OnItemClickListener listener) {
