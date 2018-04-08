@@ -30,7 +30,7 @@ public class Wakelock {
     Context mcontext;
     private  List<WLData> wakelocks;
     private String[] packageName;
-    private int[] userPid;
+    private int[] userid;
     private   String[] processName ;//list of user process  name
     private Drawable[] imageId ;
     private String[] wakelockType ;
@@ -72,7 +72,7 @@ public class Wakelock {
                         counterSize = Integer.parseInt(m.replaceAll("").trim());
 
                         packageName = new String[counterSize];
-                        userPid = new int[counterSize];
+                        userid = new int[counterSize];
                         imageId = new Drawable[counterSize];
                         processName = new String[counterSize];
                         wakelockType = new String[counterSize];
@@ -107,14 +107,13 @@ public class Wakelock {
                             if(pid!=0&&uid>10000)
                             getAppInfo(uid,WLType);
 
-
                     }
 
             wakelocks = new ArrayList<>();
 
             for (int counter = 0; counter < num; counter++) {
-                if (userPid[counter]>10000)
-                wakelocks.add(new WLData(processName[counter], userPid[counter], packageName[counter],wakelockType[counter],imageId[counter]));
+                if (userid[counter]>10000)
+                wakelocks.add(new WLData(processName[counter], userid[counter], packageName[counter],wakelockType[counter],imageId[counter]));
             }
 
         System.out.println("非系统程序产生的wakelock数量为： "+wakelocks.size());
@@ -159,7 +158,7 @@ public class Wakelock {
                 {
                     CharSequence c = pm.getApplicationLabel(pm.getApplicationInfo(info.processName, PackageManager.GET_META_DATA));
                     System.out.println( "Id: "+ info.uid +" ProcessName: "+ info.processName +"  Label: "+c.toString());
-                    userPid[num] = UID;
+                    userid[num] = UID;
                     System.out.println("UID is "+UID);
 
                     processName[num]=c.toString();

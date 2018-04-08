@@ -26,7 +26,10 @@
                 android:name = "android.support.PARENT_ACTIVITY"
                 android:value=".activity.MainActivity"/>
         </activity>
-        <service android:name=".backgroundService"/>
+        <service android:name=".BackgroundService"
+                 android:enabled="true"
+                 android:exported="true"/>
+        <receiver android:name=".AlarmReceiver"/>
     </application>
 
 </manifest>

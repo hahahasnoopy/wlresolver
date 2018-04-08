@@ -43,8 +43,6 @@ public class ProcessActivity extends Activity {
         super.onCreate(savedInstanceState);
         Log.d("oncreate","created");
         setContentView(R.layout.process_item);//设置视图
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);//must extends AppCompatActivity
         final WLData  processSelected =getIntent().getParcelableExtra("ProcessSelected");
         CardView cardView = findViewById(R.id.kill);
         cardView.setOnClickListener(new View.OnClickListener() {
@@ -96,8 +94,8 @@ public class ProcessActivity extends Activity {
 
     }
 
-
-
+//测试机上运行getcpuusage不行，原因不明，先注掉
+// TODO: 2018/4/8
     //根据top指令获取cpu消耗
     public int getCPUUsage(int PID)
     {

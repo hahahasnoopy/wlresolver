@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.edu.ustc.wlresolver.BackgroundService;
 import cn.edu.ustc.wlresolver.MyAdapter;
 import cn.edu.ustc.wlresolver.R;
 import cn.edu.ustc.wlresolver.element.Wakelock;
@@ -70,6 +72,16 @@ public class MainActivity extends Activity{
         //todo
         TextView textView =findViewById(R.id.toolbarText);
         textView.setText("Wakelock数量是："+wakelocks.size());
+        final Button btn  = findViewById(R.id.toolbarButton);
+        btn.setText("启动服务");
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent  =  new Intent(MainActivity.this, BackgroundService.class);
+                startService(intent);
+                btn.setText("服务运行中");
+            }
+        });
         adapter = new MyAdapter(wakelocks);
         recyclerView.setAdapter(adapter);
 
@@ -77,7 +89,7 @@ public class MainActivity extends Activity{
 
 
     @Override
-    protected void onResume() {
+    protected void onResume() {//返回到本程序时更新界面
         super.onResume();
         wakelocks.clear();
         try {
