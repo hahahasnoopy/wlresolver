@@ -10,6 +10,16 @@
         android:background="#2196f3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <TextView
+        android:id="@+id/toolbarText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="10dp"
+            android:textSize="30dp"
+        android:text="text" />
     </android.support.v7.widget.Toolbar>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler"
@@ -20,5 +30,7 @@
         android:scrollbars="vertical">
 
     </android.support.v7.widget.RecyclerView>
+
+
 
 </RelativeLayout>

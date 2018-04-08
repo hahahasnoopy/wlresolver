@@ -18,6 +18,7 @@ import android.widget.Toolbar;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.edu.ustc.wlresolver.MyAdapter;
 import cn.edu.ustc.wlresolver.R;
@@ -36,13 +37,14 @@ public class MainActivity extends Activity{
 
     private WLData selectedProcess;
     //Wakelock Details will be stored in below arrays which are changed dynamically in size
-    private  ArrayList<WLData> wakelocks;
+    private List<WLData> wakelocks;
+    Wakelock  wakelock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        Wakelock  wakelock = new Wakelock(this);
+          wakelock = new Wakelock(this);
         try {
             wakelocks = wakelock.getWakelock();
         } catch (IOException e) {
@@ -64,14 +66,32 @@ public class MainActivity extends Activity{
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        Toolbar toolbar =(Toolbar)findViewById(R.id.toolbar) ;
+        Toolbar toolbar =findViewById(R.id.toolbar) ;
         //todo
+        TextView textView =findViewById(R.id.toolbarText);
+        textView.setText("Wakelock数量是："+wakelocks.size());
         adapter = new MyAdapter(wakelocks);
         recyclerView.setAdapter(adapter);
 
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        wakelocks.clear();
+        try {
+            wakelocks.addAll(wakelock.getWakelock());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        adapter.notifyDataSetChanged();
+        TextView textView =findViewById(R.id.toolbarText);
+        textView.setText("Wakelock数量是："+wakelocks.size());
 
 
     }
+
     public void clicked(View view, int position)
     {
         int selectedItemPosition = recyclerView.getChildLayoutPosition(view);
@@ -94,7 +114,7 @@ public class MainActivity extends Activity{
         intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
         Log.d("start process","Process:" + selectedName);
-
+        finish();
     }
 
 

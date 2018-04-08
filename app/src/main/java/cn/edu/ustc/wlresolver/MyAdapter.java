@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.edu.ustc.wlresolver.activity.WLData;
 
@@ -17,10 +18,10 @@ import cn.edu.ustc.wlresolver.activity.WLData;
  */
 
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
-    private ArrayList<WLData> wakelockData;
+    private List<WLData> wakelockData;
 
 
-    public MyAdapter(ArrayList<WLData> wakelock)
+    public MyAdapter(List<WLData> wakelock)
     {
         this.wakelockData = wakelock;
     }

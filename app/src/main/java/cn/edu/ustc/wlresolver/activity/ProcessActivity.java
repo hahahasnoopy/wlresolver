@@ -104,37 +104,37 @@ public class ProcessActivity extends Activity {
         int Usage = 0;
         int skipLines = 0;
         String cmdOutLine;
-        try
-        {
-            Process p = Runtime.getRuntime().exec(new String[]{"top", "-n", "1"});
-            BufferedReader breader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-            while ((cmdOutLine = breader.readLine()) != null)
-            {
-                //System.out.println(cmdOutLine);
-                if(skipLines < 7)
-                {
-                    skipLines = skipLines + 1;
-                }
-                else
-                {
-                    String[] values = new String[100];
-                    String[] v = new String[5]; //for splitting CPU Usage which is of the form 5%
-                    cmdOutLine = cmdOutLine.replaceAll("\\s+", " ");
-                    values = cmdOutLine.split(" "); //get single line command output
-                    int pid = (int)Integer.parseInt(values[1]);
-                    v = values[3].split("%"); //get integer CPU Usage
-                    int cpu = (int)Integer.parseInt(v[0]);
-                    if(pid == PID)
-                    {
-                        Usage = cpu;
-                        //System.out.println(Usage+"%");
-                    }
-                }
-
-            }
-        } catch (Exception exception) {
-            exception.getMessage();
-        }
+//        try
+//        {
+//            Process p = Runtime.getRuntime().exec(new String[]{"top", "-n", "1"});
+//            BufferedReader breader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+//            while ((cmdOutLine = breader.readLine()) != null)
+//            {
+//                //System.out.println(cmdOutLine);
+//                if(skipLines < 7)
+//                {
+//                    skipLines = skipLines + 1;
+//                }
+//                else
+//                {
+//                    String[] values = new String[100];
+//                    String[] v = new String[5]; //for splitting CPU Usage which is of the form 5%
+//                    cmdOutLine = cmdOutLine.replaceAll("\\s+", " ");
+//                    values = cmdOutLine.split(" "); //get single line command output
+//                    int pid = (int)Integer.parseInt(values[1]);
+//                    v = values[3].split("%"); //get integer CPU Usage
+//                    int cpu = (int)Integer.parseInt(v[0]);
+//                    if(pid == PID)
+//                    {
+//                        Usage = cpu;
+//                        //System.out.println(Usage+"%");
+//                    }
+//                }
+//
+//            }
+//        } catch (Exception exception) {
+//            exception.getMessage();
+//        }
         return Usage;
     }
 
